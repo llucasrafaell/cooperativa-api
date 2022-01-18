@@ -2,17 +2,19 @@ package com.projeto.coperativa.controller;
 
 import java.net.URI;
 import java.util.List;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.projeto.coperativa.Pauta;
 import com.projeto.coperativa.Sessao;
 import com.projeto.coperativa.controller.dto.SessaoPautaDto;
@@ -22,7 +24,6 @@ import com.projeto.coperativa.repository.SessaoRepository;
  
 @Controller
 @RequestMapping("/sessao")
-
 
 public class SessaoController {
 	
@@ -47,17 +48,27 @@ public class SessaoController {
 		 
 		 Pauta pauta = form.converter(pautaRepository);
 		 pautaRepository.save(pauta);
-		 
 		 Sessao sessao = form.converter(sessaoRepository);
-		 sessaoRepository.save(sessao);
-		 
+		 sessaoRepository.save(sessao); 
 		 URI uri = uriBuilder.path("/sessao/{id}").buildAndExpand(sessao.getId()).toUri();
-		 
-		 
-		 return ResponseEntity.created(uri).body(new SessaoPautaDto(pauta, sessao));
+		 return ResponseEntity.created(uri).body(new SessaoPautaDto(pauta));
 	 }
 	 
+	 @ResponseBody
+	 @GetMapping("/{id}") 
+	 public SessaoPautaDto detalhar(@PathVariable Long id) {
+	   	Pauta pauta = pautaRepository.getById(id);
+	   	return new SessaoPautaDto(pauta);
+	 }
 	 
+	 @ResponseBody
+	 @DeleteMapping("/{id}")
+	 @Transactional
+	 public ResponseEntity<?> remover(@PathVariable Long id) {
+		 pautaRepository.deleteById(id);
+		 sessaoRepository.deleteById(id);
+		 return ResponseEntity.ok().build();
+	   }
 	 
 	 
 	 

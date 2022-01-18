@@ -1,21 +1,20 @@
 package com.projeto.coperativa;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 /**
  * @author lucas.martins
  *
  */
 @Entity
-@Table(name = "Pauta")
+@Table (name = "Pauta")
 public class Pauta{
 
 		
@@ -25,14 +24,17 @@ public class Pauta{
 		private String titulo;
 		private String mensagem;
 		private LocalDateTime dataCriacao = LocalDateTime.now();
-		@OneToOne//(mappedBy = "Pauta")
-		private Sessao sessao;
+		@Enumerated(EnumType.STRING)
+		private StatusSessao status = StatusSessao.NÃO_VOTADO;
 		
-		public Pauta() {}
 		
-		public Pauta(String titulo, String mensagem) {
+		public Pauta() {
+		}
+		
+		public Pauta(String titulo, String mensagem, StatusSessao status) {
 			this.titulo = titulo;
 			this.mensagem = mensagem;
+			this.status = status;
 		}
 		
 		@Override
@@ -88,12 +90,10 @@ public class Pauta{
 		public void setDataCriacao(LocalDateTime dataCriacao) {
 			this.dataCriacao = dataCriacao;
 		}
-
-		public Sessao getSessao() {
-			return sessao;
+		public StatusSessao getStatus() {
+			return status;
 		}
-
-		public void setSessao(Sessao sessao) {
-			this.sessao = sessao;
+		public void setStatus(StatusSessao status) {
+			this.status = status;
 		}		
 }

@@ -1,5 +1,7 @@
 package com.projeto.coperativa.controller.form;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
@@ -14,7 +16,9 @@ public class PautaForm {
 	private String titulo;
 	@NotNull @NotEmpty @Length(min=5)
 	private String mensagem;
-		
+	@Enumerated(EnumType.STRING)
+	private StatusSessao status = StatusSessao.NÃO_VOTADO;
+	
 	public String getTitulo() {
 		return titulo;
 	}
@@ -32,7 +36,15 @@ public class PautaForm {
 	}
 	
 	public Pauta converter (PautaRepository pautaRepository) {
-		return new Pauta(titulo, mensagem);
+		return new Pauta(titulo, mensagem, status);
+	}
+	
+	public Pauta atualizar(Long id, PautaRepository pautaRepository) {
+		Pauta pauta = pautaRepository.getById(id);
+		pauta.setTitulo(this.titulo);
+		pauta.setMensagem(this.mensagem);
+		pauta.setStatus(this.status);
+		return pauta;
 	}
 	
 

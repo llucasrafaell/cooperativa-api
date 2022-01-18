@@ -46,7 +46,7 @@ public class SessaoPautaForm {
 	}
 	
 	public Pauta converter (PautaRepository pautaRepository) {
-		return new Pauta(titulo, mensagem);
+		return new Pauta(titulo, mensagem, status);
 	}
 	public Sessao converter(SessaoRepository sessaoRepository) {
 		return new Sessao(status);

@@ -20,28 +20,15 @@ public class SessaoPautaDto {
 	public SessaoPautaDto() {
 		// TODO Auto-generated constructor stub
 	}
-	public SessaoPautaDto(Pauta pauta, Sessao sessao) {
-		this.id = pauta.getId();
-		this.titulo = pauta.getTitulo();
-	    this.mensagem = pauta.getMensagem();
-	    this.dataCriacao = pauta.getDataCriacao();
-	    this.status = sessao.getStatus();
-	}
+
 	public SessaoPautaDto (Pauta pauta) {
 		this.id = pauta.getId();
 		this.titulo = pauta.getTitulo();
 	    this.mensagem = pauta.getMensagem();
 	    this.dataCriacao = pauta.getDataCriacao();
-	    //this.status = sessao.getStatus(); 
+	    this.status = pauta.getStatus();
 	}
 	
-	public SessaoPautaDto (Sessao sessao) {
-	
-	    this.status = sessao.getStatus(); 
-	}
-
-
-
 	public Long getId() {
 		return id;
 	}
@@ -93,20 +80,7 @@ public class SessaoPautaDto {
 	public static List<SessaoPautaDto> converter(List<Pauta> pauta, List<Sessao> sessao){
 		
 		return pauta.stream().map(SessaoPautaDto::new).collect(Collectors.toList());			
-	}
-		
+	}	
 }
 
-//public static List<SessaoPautaDto> converter(List<Pauta> pauta, List<Sessao> sessao){
-//	//return pauta.stream().map(SessaoPautaDto::new).collect(Collectors.toList());
-//	
-//	List<SessaoPautaDto> sessaoPautaDto = new ArrayList<>();
-//	
-//	for(Pauta p: pauta) {
-//		
-//		SessaoPautaDto dto = new SessaoPautaDto(p,s);
-//		sessaoPautaDto.add(dto);
-//		
-//	}
-//	return sessaoPautaDto;
-//}
+

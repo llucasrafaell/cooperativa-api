@@ -3,9 +3,7 @@ package com.projeto.coperativa.controller.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.projeto.coperativa.Pauta;
-import com.projeto.coperativa.StatusSessao;
 
 public class PautaDto {
 

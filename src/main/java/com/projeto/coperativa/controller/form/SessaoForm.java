@@ -4,12 +4,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
-
 import com.projeto.coperativa.Sessao;
 import com.projeto.coperativa.StatusSessao;
-import com.projeto.coperativa.repository.PautaRepository;
 import com.projeto.coperativa.repository.SessaoRepository;
 
 public class SessaoForm {
@@ -49,5 +46,5 @@ public class SessaoForm {
 	public Sessao converter(SessaoRepository sessaoRepository) {
 		return new Sessao(status);
 	}
-	
+
 }

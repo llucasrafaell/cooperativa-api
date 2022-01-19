@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,25 +21,18 @@ import com.projeto.coperativa.controller.dto.AssociadoDto;
 import com.projeto.coperativa.controller.form.AssociadoForm;
 import com.projeto.coperativa.repository.AssociadoRepository;
 
-
 @Controller
-@RequestMapping("/associado")
+@RequestMapping("/associados")
 public class AssociadoController {
-
 
 	  @Autowired
 	  private AssociadoRepository associadoRepository;
 	  
 	  @ResponseBody
       @GetMapping
-	  public List<AssociadoDto> lista (String nome) {
-		  if (nome == null) {
-              List<Associado> associado = associadoRepository.findAll();
-              return AssociadoDto.converter(associado);
-       } else {
-           List<Associado> associado = associadoRepository.findByNome(nome);
-               return AssociadoDto.converter(associado);
-       }
+	  public List<AssociadoDto> lista () {
+           List<Associado> associado = associadoRepository.findAll();
+           return AssociadoDto.converter(associado);
 	  }
 	  
 	  @ResponseBody
@@ -57,6 +51,14 @@ public class AssociadoController {
 	   	 Associado associado = associadoRepository.getById(id);
 	   	 return new AssociadoDto(associado);
 	  }
+	  
+	  @ResponseBody
+	  @PutMapping("/{id}")
+	  @Transactional
+	  public ResponseEntity<AssociadoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AssociadoForm form){
+		  Associado associado = form.atualizar(id, associadoRepository);
+	   	  return ResponseEntity.ok(new AssociadoDto(associado));
+	     }
 	  
 	   @ResponseBody
 	   @DeleteMapping("/{id}")

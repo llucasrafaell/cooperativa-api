@@ -12,6 +12,7 @@ public class AssociadoForm {
 
 	@NotNull @NotEmpty @Length(min=3)
 	private String nome;
+	//@NotNull @NotEmpty
 	private String cpf;
 	
 	public String getNome() {
@@ -21,6 +22,9 @@ public class AssociadoForm {
 		this.nome = nome;
 	}
 	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 	public String getCpf() {
 		return cpf;
 	}
@@ -28,6 +32,13 @@ public class AssociadoForm {
 	public Associado converter(AssociadoRepository associadoRepository) {
 		
 		return new Associado(nome, cpf);
+	}
+	
+	public Associado atualizar(Long id, AssociadoRepository associadoRepository) {
+		Associado associado = associadoRepository.getById(id);
+		associado.setNome(this.nome);
+		associado.setCpf(this.cpf);
+		return associado;
 	}
 	
 }

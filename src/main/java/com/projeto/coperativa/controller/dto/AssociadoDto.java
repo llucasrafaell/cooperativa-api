@@ -37,6 +37,10 @@ public class AssociadoDto {
 		this.nome = nome;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public static List<AssociadoDto> converter(List<Associado> associado) {
 	    return associado.stream().map(AssociadoDto::new).collect(Collectors.toList());
 	        }

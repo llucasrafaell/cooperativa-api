@@ -22,7 +22,7 @@ import com.projeto.coperativa.controller.form.PautaForm;
 import com.projeto.coperativa.repository.PautaRepository;
 
 @Controller
-@RequestMapping("/pauta")
+@RequestMapping("/pautas")
 public class PautaController {
 	
 	@Autowired
@@ -55,8 +55,8 @@ public class PautaController {
      @PutMapping("/{id}")
      @Transactional
      public ResponseEntity<PautaDto> atualizar(@PathVariable Long id, @RequestBody @Valid PautaForm form){
-   	  Pauta pauta = form.atualizar(id, pautaRepository);
-   	  return ResponseEntity.ok(new PautaDto(pauta));
+		 Pauta pauta = form.atualizar(id, pautaRepository);
+   	  	 return ResponseEntity.ok(new PautaDto(pauta));
      }
 	  
 	 @ResponseBody

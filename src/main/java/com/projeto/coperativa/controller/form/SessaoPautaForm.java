@@ -4,9 +4,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.validator.constraints.Length;
-
 import com.projeto.coperativa.Pauta;
 import com.projeto.coperativa.Sessao;
 import com.projeto.coperativa.StatusSessao;
@@ -50,5 +48,12 @@ public class SessaoPautaForm {
 	}
 	public Sessao converter(SessaoRepository sessaoRepository) {
 		return new Sessao(status);
+	}
+	public Pauta atualizar(Long id, PautaRepository pautaRepository) {
+		Pauta pauta = pautaRepository.getById(id);
+		pauta.setTitulo(this.titulo);
+		pauta.setMensagem(this.mensagem);
+		pauta.setStatus(this.status);
+		return pauta;
 	}
 }
